@@ -1,0 +1,207 @@
+andrey, [11.06.2024 9:18]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco C Application Wizard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: black; /* Черный цвет текста по умолчанию */
+        }
+        .window-container {
+            width: 800px;
+            height: 600px;
+            resize: both;
+            overflow: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .header {
+            background-color: #0078d4;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+        }
+        .left-panel {
+            width: 30%;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .right-panel {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: white;
+            color: black;
+        }
+        .link {
+            cursor: pointer;
+            text-decoration: underline;
+            color: black;
+        }
+        .active {
+            color: rgb(25, 0, 255);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .bottom-menu {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+            margin-top: 10px;
+            background-color: white; /* Белый фон */
+        }
+        .button {
+            margin-left: 10px;
+            background-color: #007bff; /* Синий цвет */
+            color: #fff; /* Белый текст */
+            padding: 8px 16px; /* Уменьшенные отступы внутри кнопки */
+            border: none; /* Убираем границу */
+            border-radius: 4px; /* Закругляем углы */
+            cursor: pointer; /* Изменяем курсор при наведении */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Плавное изменение цвета при наведении */
+        }
+        .button:hover {
+            background-color: #fff; /* Белый фон при наведении */
+            color: #007bff; /* Синий текст при наведении */
+        }
+        .button[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+  <div class="window-container">
+      <div class="container">
+          <div class="header">
+              <h1>Welcome to the Eco C for Windows Application Wizard</h1>
+          </div>
+          <div class="content">
+              <div class="left-panel">
+                  <p class="link" onclick="showPage(1)">Overview</p>
+                  <p class="link" onclick="showPage(2)">Name and Path</p>
+                  <p class="link" onclick="showPage(3)">Application Settings</p>
+              </div>
+              <div class="right-panel" id="right-panel">
+                  <iframe id="pageFrame" src="page1.html"></iframe>
+              </div>
+          </div>
+          <div class="bottom-menu">
+            <button class="button" onclick="previousPage()" id="prevButton" disabled>Previous</button>
+            <button class="button" onclick="nextPage()" id="nextButton">Next</button>
+            <button class="button" onclick="finish()" id="finishButton" disabled>Finish</button>
+            <button class="button" onclick="cancel()">Cancel</button>
+        </div>        
+      </div>
+  </div>
+
+    <script>
+        var currentPage = 1;
+        var totalPages = 3;
+        var folderName = "";
+        var folderPath = "";
+
+function showPage(pageNumber) {
+            var pageUrl;
+            if (pageNumber === 1) {
+                pageUrl = "data:text/html;base64,${Buffer.from(page1Content).toString('base64')}";
+            } else if (pageNumber === 2) {
+                pageUrl = "data:text/html;base64,${Buffer.from(page2Content).toString('base64')}";
+            } else if (pageNumber === 3) {
+                pageUrl = "data:text/html;base64,${Buffer.from(page3Content).toString('base64')}";
+            }
+            document.getElementById("pageFrame").src = pageUrl;
+            currentPage = pageNumber;
+            updateButtonState();
+        }
+
+        function nextPage(newDirUri) {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+
+                // Получение данных со страницы 2
+                var folderNameElement = document.getElementById("folderName");
+                var folderPathElement = document.getElementById("folderPath");
+
+                if (folderNameElement && folderPathElement) {
+                    folderName = folderNameElement.value;
+                    folderPath = folderPathElement.value;
+                    console.log('Data collected:', folderName, folderPath);
+
+                    // Добавление сообщения о успешной записи данных
+                    alert("Данные успешно записаны");
+                } else {
+                    console.error('Error: Could not find folderName or folderPath element.');
+                }
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+
+        function finish() {
+            // Проверяем, что данные для папки собраны
+            if (folderName && folderPath) {
+                // Создаем папку с указанным именем и путем
+                createDirectory(folderName, folderPath);
+            } else {
+                console.error('Error: Folder name or path is missing.');
+            }
+        }
+
+        function createDirectory(name, path) {
+            // Здесь должен быть ваш код для создания папки
+            console.log("Creating directory:", name, "at", path);
+            alert("Directory created successfully!");
+        }
+
+        function cancel() {
+            // Действия при отмене
+        }
+
+        function updateButtonState() {
+            var prevButton = document.getElementById("prevButton");
+            var nextButton = document.getElementById("nextButton");
+            var finishButton = document.getElementById("finishButton");
+
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === 2; // Делаем кнопку Next недоступной на странице 2
+            finishButton.disabled = currentPage !== totalPages;
+        }
+
+        window.onload = function() {
+            updateButtonState();
+            // Установка начальной страницы при загрузке
+            showPage(1);
+        };
+       
+    </script>
+</body>
+</html>

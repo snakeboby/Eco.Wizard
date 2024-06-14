@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Settings</title>
+    <style>
+        .right-panel {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: white; /* Добавляем белый фон */
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .button-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        input[type="radio"]:hover,
+        input[type="checkbox"]:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<p>Application type:</p>
+<label for="radio1"><input type="radio" id="radio1" name="choice" checked> Application</label><br>
+<label for="radio2"><input type="radio" id="radio2" name="choice"> Component</label>
+
+<div id="checkboxes">
+    <p>Additional options:</p>
+    <label><input type="checkbox" name="option1"> Add postfix namespace</label><br>
+    <label><input type="checkbox" name="option2"> Add Connection Points</label><br>
+    <label><input type="checkbox" name="option3"> Add Aggregation (inner)</label><br>
+    <label><input type="checkbox" name="option4"> Add Aggregation (outer)</label><br>
+    <label><input type="checkbox" name="option5"> Add Containment (outer)</label><br>
+    <label><input type="checkbox" name="option6"> Unit Test Project</label>
+</div>
+
+<p>Path type:</p>
+<label for="action1"><input type="radio" id="action1" name="action" checked> Relative</label><br>
+<label for="action2"><input type="radio" id="action2" name="action"> Environment</label>
+
+<script>
+    function createFolder() {
+        var folderName = document.getElementById("folderName").value;
+        var folderPath = document.getElementById("folderPath").value;
+        var applicationType = document.querySelector('input[name="choice"]:checked').value;
+        var additionalOptions = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:checked')).map(function (checkbox) {
+            return checkbox.value;
+        });
+        var pathType = document.querySelector('input[name="action"]:checked').value;
+
+        vscode.postMessage({
+            command: 'createFolder',
+            folderName: folderName,
+            folderPath: folderPath,
+            applicationType: applicationType,
+            additionalOptions: additionalOptions,
+            pathType: pathType
+        });
+    }
+
+    function toggleCheckboxes(shouldDisable) {
+        var checkboxes = document.querySelectorAll('#checkboxes input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            checkbox.disabled = shouldDisable;
+        });
+    }
+
+    var radioApplication = document.getElementById("radio1");
+    var radioComponent = document.getElementById("radio2");
+
+    radioApplication.addEventListener('change', function () {
+        toggleCheckboxes(this.checked);
+    });
+
+    radioComponent.addEventListener('change', function () {
+        toggleCheckboxes(!this.checked);
+    });
+
+    toggleCheckboxes(radioApplication.checked);
+</script>
+
+</body>
+</html>

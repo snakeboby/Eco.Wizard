@@ -1,0 +1,101 @@
+[!if ECO_APP]
+OpenFile | root.c
+K210MakefileExe
+K210entry.S
+K210startup.ld
+K210upload.bat
+[!endif]
+[!if ECO_COM_APP]
+IROOT.h
+IdROOT.h
+ErrROOT.h
+CROOT.h
+CROOT.c
+CROOTFactory.h
+CROOTFactory.c
+BCM283xMakefile
+LinuxMakefile
+Linuxbuild.sh
+K210Makefile
+STM32.cproject
+STM32.project
+STM32language.settings.xml
+Maccontents.xcworkspacedata
+MacDynamic.xcscheme
+MacIDEWorkspaceChecks.plist
+Macproject.pbxproj
+MacStatic.xcscheme
+MacWorkspaceSettings.xcsettings
+IOScontents.xcworkspacedata
+IOSIDEWorkspaceChecks.plist
+IOSproject.pbxproj
+IOSWorkspaceSettings.xcsettings
+ROOT.atsln
+ROOT.componentinfo.xml
+ROOT.cproj
+Android.bat
+Android.mk
+Application.mk
+PIC32configurations.xml
+PIC32project.xml
+PIC32Makefile
+    [!if ADD_CONNECTION_POINTS]
+IEcoConnectionPoint.h
+IEcoConnectionPointContainer.h
+IEcoEnumConnectionPoints.h
+IEcoEnumConnections.h
+CROOTConnectionPoint.c
+CROOTConnectionPoint.h
+CROOTEnumConnectionPoints.c
+CROOTEnumConnectionPoints.h
+CROOTEnumConnections.c
+CROOTEnumConnections.h
+    [!endif]
+    [!if UNIT_TEST_PROJECT]
+OpenFile | root.c
+STM32Unit.cproject
+STM32Unit.project
+STM32Unitlanguage.settings.xml
+STM32F407VGTX_FLASH.ld
+STM32F407VGTX_RAM.ld
+STM32ROOT.cfg
+STM32ROOT.launch
+startup_stm32f407vgtx.s
+ROOTUnitTest.componentinfo.xml
+ROOTUnitTest.cproj
+AVR8upload.bat
+LinuxMakefileExe
+AndroidROOTUnitTest.sln
+AndroidROOTUnitTest.vcxproj
+AndroidROOTUnitTest.vcxproj.filters
+Androidstrings.xml
+UnitTestAndroidManifest.xml
+MacUnitcontents.xcworkspacedata
+MacUnitIDEWorkspaceChecks.plist
+MacUnitproject.pbxproj
+MacUnitWorkspaceSettings.xcsettings
+IOSUnitColorContents.json
+IOSUnitContents.json
+IOSUnitcontents.xcworkspacedata
+IOSUnitIconContents.json
+IOSUnitIDEWorkspaceChecks.plist
+IOSUnitInfo.plist
+IOSUnitMain.storyboard
+IOSUnitMapContents.json
+IOSUnitMipContents.json
+IOSUnitproject.pbxproj
+IOSUnitWorkspaceSettings.xcsettings
+IOSUnitAppDelegate.m
+IOSUnitEcoDemoDialogIOS.m
+IOSUnitGameViewController.m
+IOSUnitAppDelegate.h
+IOSUnitEcoDemoDialog.h
+IOSUnitGameViewController.h
+IOSUnitColorMap.png
+peerFont_1251.bmp
+        [!if ADD_CONNECTION_POINTS]
+CROOTSink.c
+CROOTSink.h
+        [!endif]
+    [!endif]
+[!endif]

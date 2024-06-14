@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Configuration</title>
+    <style>
+        .right-panel {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: white; /* Добавляем белый фон */
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .button-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        input[type="radio"]:hover, input[type="checkbox"]:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create Directory</h1>
+    <form id="directoryForm">
+        <label for="folderName">Folder Name:</label>
+        <input type="text" id="folderName" name="folderName"><br><br>
+        <label for="folderPath">Folder Path:</label>
+        <input type="text" id="folderPath" name="folderPath"><br><br>
+        <!-- <button type="submit">Create Directory</button> -->
+    </form>
+
+    <script>
+        document.getElementById('fileForm').addEventListener('submit', function(event) {
+            console.log('event');
+            event.preventDefault(); // Предотвратить отправку формы
+            const fileName = document.getElementById('fileName').value;
+            const filePath = document.getElementById('filePath').value;
+            // Отправить значения обратно в расширение
+            vscode.postMessage({
+                command: 'createDirectory',
+                fileName: fileName,
+                filePath: filePath
+            });
+        });
+    </script>
+</body>
+</html>

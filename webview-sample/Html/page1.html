@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .button-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .button-container p {
+            margin-left: 10px;
+            background-color: #007bff; /* Синий цвет */
+            color: #fff; /* Белый текст */
+            padding: 8px 16px; /* Уменьшенные отступы внутри кнопки */
+            border: none; /* Убираем границу */
+            border-radius: 5px; /* Закругляем углы */
+            cursor: pointer; /* Изменяем курсор при наведении */
+            text-decoration: none; /* Убираем подчеркивание */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Плавное изменение цвета при наведении */
+            display: inline-block; /* Добавляем блочный элемент */
+        }
+        .button-container p:hover {
+            background-color: #fff; /* Белый цвет при наведении */
+            color: #007bff; /* Синий текст при наведении */
+        }
+        .button-container p[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>These are current project settings:</p>
+        <ul>
+            <li>Application</li>
+        </ul>
+        <p>Click <b>Finish</b> from any window to accept the current settings.</p>
+        <p>After you create the project, see the project's readme.txt file for information<br>about the project features and files that are generated.</p>
+    </div>
+
+    
+</body>
+</html>
